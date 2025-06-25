@@ -36,6 +36,7 @@ func (mg *Trigger) ResolveReferences(ctx context.Context, c client.Reader) error
 				rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 					CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Destination.CloudRunService.Service),
 					Extract:      reference.ExternalName(),
+					Namespace:    mg.GetNamespace(),
 					Reference:    mg.Spec.ForProvider.Destination.CloudRunService.ServiceRef,
 					Selector:     mg.Spec.ForProvider.Destination.CloudRunService.ServiceSelector,
 					To:           reference.To{List: l, Managed: m},
@@ -59,6 +60,7 @@ func (mg *Trigger) ResolveReferences(ctx context.Context, c client.Reader) error
 				rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 					CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Destination.CloudRunService.Service),
 					Extract:      reference.ExternalName(),
+					Namespace:    mg.GetNamespace(),
 					Reference:    mg.Spec.InitProvider.Destination.CloudRunService.ServiceRef,
 					Selector:     mg.Spec.InitProvider.Destination.CloudRunService.ServiceSelector,
 					To:           reference.To{List: l, Managed: m},

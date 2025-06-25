@@ -35,6 +35,7 @@ func (mg *ServiceConnectionPolicy) ResolveReferences( // ResolveReferences of th
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Network),
 			Extract:      resource.ExtractResourceID(),
+			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.ForProvider.NetworkRef,
 			Selector:     mg.Spec.ForProvider.NetworkSelector,
 			To:           reference.To{List: l, Managed: m},
@@ -55,6 +56,7 @@ func (mg *ServiceConnectionPolicy) ResolveReferences( // ResolveReferences of th
 			mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
 				CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.PscConfig.Subnetworks),
 				Extract:       resource.ExtractResourceID(),
+				Namespace:     mg.GetNamespace(),
 				References:    mg.Spec.ForProvider.PscConfig.SubnetworksRefs,
 				Selector:      mg.Spec.ForProvider.PscConfig.SubnetworksSelector,
 				To:            reference.To{List: l, Managed: m},
@@ -75,6 +77,7 @@ func (mg *ServiceConnectionPolicy) ResolveReferences( // ResolveReferences of th
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Network),
 			Extract:      resource.ExtractResourceID(),
+			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.InitProvider.NetworkRef,
 			Selector:     mg.Spec.InitProvider.NetworkSelector,
 			To:           reference.To{List: l, Managed: m},
@@ -95,6 +98,7 @@ func (mg *ServiceConnectionPolicy) ResolveReferences( // ResolveReferences of th
 			mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
 				CurrentValues: reference.FromPtrValues(mg.Spec.InitProvider.PscConfig.Subnetworks),
 				Extract:       resource.ExtractResourceID(),
+				Namespace:     mg.GetNamespace(),
 				References:    mg.Spec.InitProvider.PscConfig.SubnetworksRefs,
 				Selector:      mg.Spec.InitProvider.PscConfig.SubnetworksSelector,
 				To:            reference.To{List: l, Managed: m},
@@ -128,6 +132,7 @@ func (mg *Spoke) ResolveReferences(ctx context.Context, c client.Reader) error {
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Hub),
 			Extract:      resource.ExtractResourceID(),
+			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.ForProvider.HubRef,
 			Selector:     mg.Spec.ForProvider.HubSelector,
 			To:           reference.To{List: l, Managed: m},
@@ -149,6 +154,7 @@ func (mg *Spoke) ResolveReferences(ctx context.Context, c client.Reader) error {
 				rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 					CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.LinkedRouterApplianceInstances[i3].Instances[i4].VirtualMachine),
 					Extract:      resource.ExtractParamPath("self_link", true),
+					Namespace:    mg.GetNamespace(),
 					Reference:    mg.Spec.ForProvider.LinkedRouterApplianceInstances[i3].Instances[i4].VirtualMachineRef,
 					Selector:     mg.Spec.ForProvider.LinkedRouterApplianceInstances[i3].Instances[i4].VirtualMachineSelector,
 					To:           reference.To{List: l, Managed: m},
@@ -171,6 +177,7 @@ func (mg *Spoke) ResolveReferences(ctx context.Context, c client.Reader) error {
 			rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 				CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.LinkedVPCNetwork[i3].URI),
 				Extract:      resource.ExtractParamPath("self_link", true),
+				Namespace:    mg.GetNamespace(),
 				Reference:    mg.Spec.ForProvider.LinkedVPCNetwork[i3].URIRef,
 				Selector:     mg.Spec.ForProvider.LinkedVPCNetwork[i3].URISelector,
 				To:           reference.To{List: l, Managed: m},
@@ -191,6 +198,7 @@ func (mg *Spoke) ResolveReferences(ctx context.Context, c client.Reader) error {
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Hub),
 			Extract:      resource.ExtractResourceID(),
+			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.InitProvider.HubRef,
 			Selector:     mg.Spec.InitProvider.HubSelector,
 			To:           reference.To{List: l, Managed: m},
@@ -212,6 +220,7 @@ func (mg *Spoke) ResolveReferences(ctx context.Context, c client.Reader) error {
 				rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 					CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.LinkedRouterApplianceInstances[i3].Instances[i4].VirtualMachine),
 					Extract:      resource.ExtractParamPath("self_link", true),
+					Namespace:    mg.GetNamespace(),
 					Reference:    mg.Spec.InitProvider.LinkedRouterApplianceInstances[i3].Instances[i4].VirtualMachineRef,
 					Selector:     mg.Spec.InitProvider.LinkedRouterApplianceInstances[i3].Instances[i4].VirtualMachineSelector,
 					To:           reference.To{List: l, Managed: m},
@@ -234,6 +243,7 @@ func (mg *Spoke) ResolveReferences(ctx context.Context, c client.Reader) error {
 			rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 				CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.LinkedVPCNetwork[i3].URI),
 				Extract:      resource.ExtractParamPath("self_link", true),
+				Namespace:    mg.GetNamespace(),
 				Reference:    mg.Spec.InitProvider.LinkedVPCNetwork[i3].URIRef,
 				Selector:     mg.Spec.InitProvider.LinkedVPCNetwork[i3].URISelector,
 				To:           reference.To{List: l, Managed: m},

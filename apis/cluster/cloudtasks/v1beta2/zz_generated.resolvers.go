@@ -34,6 +34,7 @@ func (mg *Queue) ResolveReferences(ctx context.Context, c client.Reader) error {
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Project),
 			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.ForProvider.ProjectRef,
 			Selector:     mg.Spec.ForProvider.ProjectSelector,
 			To:           reference.To{List: l, Managed: m},
@@ -53,6 +54,7 @@ func (mg *Queue) ResolveReferences(ctx context.Context, c client.Reader) error {
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Project),
 			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.InitProvider.ProjectRef,
 			Selector:     mg.Spec.InitProvider.ProjectSelector,
 			To:           reference.To{List: l, Managed: m},

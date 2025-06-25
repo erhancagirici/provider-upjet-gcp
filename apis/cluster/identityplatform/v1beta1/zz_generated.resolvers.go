@@ -33,6 +33,7 @@ func (mg *TenantDefaultSupportedIdPConfig) ResolveReferences( // ResolveReferenc
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Tenant),
 			Extract:      resource.ExtractParamPath("name", true),
+			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.ForProvider.TenantRef,
 			Selector:     mg.Spec.ForProvider.TenantSelector,
 			To:           reference.To{List: l, Managed: m},
@@ -52,6 +53,7 @@ func (mg *TenantDefaultSupportedIdPConfig) ResolveReferences( // ResolveReferenc
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Tenant),
 			Extract:      resource.ExtractParamPath("name", true),
+			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.InitProvider.TenantRef,
 			Selector:     mg.Spec.InitProvider.TenantSelector,
 			To:           reference.To{List: l, Managed: m},
@@ -83,6 +85,7 @@ func (mg *TenantInboundSAMLConfig) ResolveReferences(ctx context.Context, c clie
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Tenant),
 			Extract:      resource.ExtractParamPath("name", true),
+			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.ForProvider.TenantRef,
 			Selector:     mg.Spec.ForProvider.TenantSelector,
 			To:           reference.To{List: l, Managed: m},
@@ -102,6 +105,7 @@ func (mg *TenantInboundSAMLConfig) ResolveReferences(ctx context.Context, c clie
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Tenant),
 			Extract:      resource.ExtractParamPath("name", true),
+			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.InitProvider.TenantRef,
 			Selector:     mg.Spec.InitProvider.TenantSelector,
 			To:           reference.To{List: l, Managed: m},
@@ -133,6 +137,7 @@ func (mg *TenantOAuthIdPConfig) ResolveReferences(ctx context.Context, c client.
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Tenant),
 			Extract:      resource.ExtractParamPath("name", true),
+			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.ForProvider.TenantRef,
 			Selector:     mg.Spec.ForProvider.TenantSelector,
 			To:           reference.To{List: l, Managed: m},
@@ -152,6 +157,7 @@ func (mg *TenantOAuthIdPConfig) ResolveReferences(ctx context.Context, c client.
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Tenant),
 			Extract:      resource.ExtractParamPath("name", true),
+			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.InitProvider.TenantRef,
 			Selector:     mg.Spec.InitProvider.TenantSelector,
 			To:           reference.To{List: l, Managed: m},

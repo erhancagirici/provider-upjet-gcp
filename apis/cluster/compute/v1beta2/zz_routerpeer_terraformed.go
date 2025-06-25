@@ -21,7 +21,7 @@ func (mg *RouterPeer) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this RouterPeer
 func (tr *RouterPeer) GetConnectionDetailsMapping() map[string]string {
-	return map[string]string{"md5_authentication_key[*].key": "md5AuthenticationKey[*].keySecretRef"}
+	return map[string]string{"md5_authentication_key[*].key": "md5AuthenticationKey.keySecretRef"}
 }
 
 // GetObservation of this RouterPeer
@@ -84,7 +84,7 @@ func (tr *RouterPeer) GetInitParameters() (map[string]any, error) {
 func (tr *RouterPeer) GetMergedParameters(shouldMergeInitProvider bool) (map[string]any, error) {
 	params, err := tr.GetParameters()
 	if err != nil {
-		return nil, errors.Wrapf(err, "cannot get parameters for resource '%q'", tr.GetName())
+		return nil, errors.Wrapf(err, "cannot get parameters for resource \"%s/%s\"", tr.GetNamespace(), tr.GetName())
 	}
 	if !shouldMergeInitProvider {
 		return params, nil
@@ -92,7 +92,7 @@ func (tr *RouterPeer) GetMergedParameters(shouldMergeInitProvider bool) (map[str
 
 	initParams, err := tr.GetInitParameters()
 	if err != nil {
-		return nil, errors.Wrapf(err, "cannot get init parameters for resource '%q'", tr.GetName())
+		return nil, errors.Wrapf(err, "cannot get init parameters for resource \"%s/%s\"", tr.GetNamespace(), tr.GetName())
 	}
 
 	// Note(lsviben): mergo.WithSliceDeepCopy is needed to merge the
@@ -104,7 +104,7 @@ func (tr *RouterPeer) GetMergedParameters(shouldMergeInitProvider bool) (map[str
 		c.Overwrite = false
 	})
 	if err != nil {
-		return nil, errors.Wrapf(err, "cannot merge spec.initProvider and spec.forProvider parameters for resource '%q'", tr.GetName())
+		return nil, errors.Wrapf(err, "cannot merge spec.initProvider and spec.forProvider parameters for resource \"%s/%s\"", tr.GetNamespace(), tr.GetName())
 	}
 
 	return params, nil

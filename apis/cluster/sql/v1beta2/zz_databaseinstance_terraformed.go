@@ -21,7 +21,7 @@ func (mg *DatabaseInstance) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this DatabaseInstance
 func (tr *DatabaseInstance) GetConnectionDetailsMapping() map[string]string {
-	return map[string]string{"replica_configuration[*].password": "replicaConfiguration[*].passwordSecretRef", "root_password": "rootPasswordSecretRef", "server_ca_cert[*]": "status.atProvider.serverCaCert[*]"}
+	return map[string]string{"replica_configuration[*].password": "replicaConfiguration.passwordSecretRef", "root_password": "rootPasswordSecretRef", "server_ca_cert[*]": "status.atProvider.serverCaCert[*]"}
 }
 
 // GetObservation of this DatabaseInstance
@@ -84,7 +84,7 @@ func (tr *DatabaseInstance) GetInitParameters() (map[string]any, error) {
 func (tr *DatabaseInstance) GetMergedParameters(shouldMergeInitProvider bool) (map[string]any, error) {
 	params, err := tr.GetParameters()
 	if err != nil {
-		return nil, errors.Wrapf(err, "cannot get parameters for resource '%q'", tr.GetName())
+		return nil, errors.Wrapf(err, "cannot get parameters for resource \"%s/%s\"", tr.GetNamespace(), tr.GetName())
 	}
 	if !shouldMergeInitProvider {
 		return params, nil
@@ -92,7 +92,7 @@ func (tr *DatabaseInstance) GetMergedParameters(shouldMergeInitProvider bool) (m
 
 	initParams, err := tr.GetInitParameters()
 	if err != nil {
-		return nil, errors.Wrapf(err, "cannot get init parameters for resource '%q'", tr.GetName())
+		return nil, errors.Wrapf(err, "cannot get init parameters for resource \"%s/%s\"", tr.GetNamespace(), tr.GetName())
 	}
 
 	// Note(lsviben): mergo.WithSliceDeepCopy is needed to merge the
@@ -104,7 +104,7 @@ func (tr *DatabaseInstance) GetMergedParameters(shouldMergeInitProvider bool) (m
 		c.Overwrite = false
 	})
 	if err != nil {
-		return nil, errors.Wrapf(err, "cannot merge spec.initProvider and spec.forProvider parameters for resource '%q'", tr.GetName())
+		return nil, errors.Wrapf(err, "cannot merge spec.initProvider and spec.forProvider parameters for resource \"%s/%s\"", tr.GetNamespace(), tr.GetName())
 	}
 
 	return params, nil

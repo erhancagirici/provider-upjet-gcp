@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-package cluster
+package controller
 
 import (
 	ctrl "sigs.k8s.io/controller-runtime"

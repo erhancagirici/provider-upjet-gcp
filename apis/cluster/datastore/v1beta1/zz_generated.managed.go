@@ -27,11 +27,6 @@ func (mg *Index) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
-// GetPublishConnectionDetailsTo of this Index.
-func (mg *Index) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
-	return mg.Spec.PublishConnectionDetailsTo
-}
-
 // GetWriteConnectionSecretToReference of this Index.
 func (mg *Index) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
@@ -55,11 +50,6 @@ func (mg *Index) SetManagementPolicies(r xpv1.ManagementPolicies) {
 // SetProviderConfigReference of this Index.
 func (mg *Index) SetProviderConfigReference(r *xpv1.Reference) {
 	mg.Spec.ProviderConfigReference = r
-}
-
-// SetPublishConnectionDetailsTo of this Index.
-func (mg *Index) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
-	mg.Spec.PublishConnectionDetailsTo = r
 }
 
 // SetWriteConnectionSecretToReference of this Index.
