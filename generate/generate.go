@@ -13,6 +13,8 @@
 
 // Remove generated Go files
 //go:generate bash -c "find ../apis \\( -iname 'zz_generated.conversion_hubs.go' -o -iname 'zz_generated.conversion_spokes.go' -o -iname 'zz_generated.resolvers.go' \\) -delete"
+//go:generate bash -c "find ../apis \\( -iname 'zz_generated.managed.go' -o -iname 'zz_generated.managedlist.go' -o -iname 'zz_generated.pcu.go' -o -iname 'zz_generated.pculist.go' \\) -delete"
+//go:generate bash -c "find ../apis \\( -iname 'zz_generated.managedv2.go' -o -iname 'zz_generated.managedlistv2.go' -o -iname 'zz_generated.pcuv2.go' -o -iname 'zz_generated.pculistv2.go' -o -iname 'zz_generated.resolversv2.go' \\) -delete"
 //go:generate bash -c "find ../apis -type d -empty -delete"
 //go:generate bash -c "find ../internal/controller -iname 'zz_*' -delete"
 //go:generate bash -c "find ../internal/controller -type d -empty -delete"
