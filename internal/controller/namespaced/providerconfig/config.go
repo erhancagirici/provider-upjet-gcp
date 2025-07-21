@@ -62,3 +62,7 @@ func setupClusterProviderConfig(mgr ctrl.Manager, o controller.Options) error {
 			providerconfig.WithLogger(o.Logger.WithValues("controller", name)),
 			providerconfig.WithRecorder(event.NewAPIRecorder(mgr.GetEventRecorderFor(name)))))
 }
+
+func SetupGated(mgr ctrl.Manager, o controller.Options) error {
+	return Setup(mgr, o)
+}
