@@ -21,7 +21,7 @@ func (mg *InstanceFromTemplate) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this InstanceFromTemplate
 func (tr *InstanceFromTemplate) GetConnectionDetailsMapping() map[string]string {
-	return map[string]string{"attached_disk[*].disk_encryption_key_raw": "attachedDisk[*].diskEncryptionKeyRawSecretRef", "attached_disk[*].disk_encryption_key_rsa": "attachedDisk[*].diskEncryptionKeyRsaSecretRef", "boot_disk[*].disk_encryption_key_raw": "bootDisk[*].diskEncryptionKeyRawSecretRef", "boot_disk[*].disk_encryption_key_rsa": "bootDisk[*].diskEncryptionKeyRsaSecretRef", "boot_disk[*].initialize_params[*].source_image_encryption_key[*].raw_key": "bootDisk[*].initializeParams[*].sourceImageEncryptionKey[*].rawKeySecretRef", "boot_disk[*].initialize_params[*].source_image_encryption_key[*].rsa_encrypted_key": "bootDisk[*].initializeParams[*].sourceImageEncryptionKey[*].rsaEncryptedKeySecretRef", "boot_disk[*].initialize_params[*].source_snapshot_encryption_key[*].raw_key": "bootDisk[*].initializeParams[*].sourceSnapshotEncryptionKey[*].rawKeySecretRef", "boot_disk[*].initialize_params[*].source_snapshot_encryption_key[*].rsa_encrypted_key": "bootDisk[*].initializeParams[*].sourceSnapshotEncryptionKey[*].rsaEncryptedKeySecretRef"}
+	return map[string]string{"attached_disk[*].disk_encryption_key_raw": "attachedDisk[*].diskEncryptionKeyRawSecretRef", "attached_disk[*].disk_encryption_key_rsa": "attachedDisk[*].diskEncryptionKeyRsaSecretRef", "boot_disk[*].disk_encryption_key_raw": "bootDisk.diskEncryptionKeyRawSecretRef", "boot_disk[*].disk_encryption_key_rsa": "bootDisk.diskEncryptionKeyRsaSecretRef", "boot_disk[*].initialize_params[*].source_image_encryption_key[*].raw_key": "bootDisk.initializeParams.sourceImageEncryptionKey.rawKeySecretRef", "boot_disk[*].initialize_params[*].source_image_encryption_key[*].rsa_encrypted_key": "bootDisk.initializeParams.sourceImageEncryptionKey.rsaEncryptedKeySecretRef", "boot_disk[*].initialize_params[*].source_snapshot_encryption_key[*].raw_key": "bootDisk.initializeParams.sourceSnapshotEncryptionKey.rawKeySecretRef", "boot_disk[*].initialize_params[*].source_snapshot_encryption_key[*].rsa_encrypted_key": "bootDisk.initializeParams.sourceSnapshotEncryptionKey.rsaEncryptedKeySecretRef"}
 }
 
 // GetObservation of this InstanceFromTemplate
@@ -84,7 +84,7 @@ func (tr *InstanceFromTemplate) GetInitParameters() (map[string]any, error) {
 func (tr *InstanceFromTemplate) GetMergedParameters(shouldMergeInitProvider bool) (map[string]any, error) {
 	params, err := tr.GetParameters()
 	if err != nil {
-		return nil, errors.Wrapf(err, "cannot get parameters for resource '%q'", tr.GetName())
+		return nil, errors.Wrapf(err, "cannot get parameters for resource \"%s/%s\"", tr.GetNamespace(), tr.GetName())
 	}
 	if !shouldMergeInitProvider {
 		return params, nil
@@ -92,7 +92,7 @@ func (tr *InstanceFromTemplate) GetMergedParameters(shouldMergeInitProvider bool
 
 	initParams, err := tr.GetInitParameters()
 	if err != nil {
-		return nil, errors.Wrapf(err, "cannot get init parameters for resource '%q'", tr.GetName())
+		return nil, errors.Wrapf(err, "cannot get init parameters for resource \"%s/%s\"", tr.GetNamespace(), tr.GetName())
 	}
 
 	// Note(lsviben): mergo.WithSliceDeepCopy is needed to merge the
@@ -104,7 +104,7 @@ func (tr *InstanceFromTemplate) GetMergedParameters(shouldMergeInitProvider bool
 		c.Overwrite = false
 	})
 	if err != nil {
-		return nil, errors.Wrapf(err, "cannot merge spec.initProvider and spec.forProvider parameters for resource '%q'", tr.GetName())
+		return nil, errors.Wrapf(err, "cannot merge spec.initProvider and spec.forProvider parameters for resource \"%s/%s\"", tr.GetNamespace(), tr.GetName())
 	}
 
 	return params, nil
