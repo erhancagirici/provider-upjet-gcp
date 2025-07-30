@@ -2,12 +2,12 @@
 //
 // SPDX-License-Identifier: CC0-1.0
 
-package cluster
+package config
 
 import (
 	"github.com/crossplane/upjet/pkg/config"
 
-	"github.com/upbound/provider-gcp/config/namespaced/common"
+	"github.com/upbound/provider-gcp/config/cluster/common"
 )
 
 // terraformPluginSDKExternalNameConfigs contains all external name configurations
