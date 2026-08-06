@@ -21,6 +21,7 @@ import (
 	"github.com/crossplane/upjet/v2/pkg/terraform"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	tfsdk "github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
+	fwprovider "github.com/hashicorp/terraform-provider-google/google/fwprovider"
 	transporttpg "github.com/hashicorp/terraform-provider-google/google/transport"
 	"github.com/pkg/errors"
 	"k8s.io/apimachinery/pkg/types"
@@ -236,6 +237,7 @@ func configureNoForkGCPClient(ps *terraform.Setup, p schema.Provider) error {
 		}
 		config.Client.Transport = &metricsRoundTripper{base: base}
 	}
+	ps.FrameworkProvider = fwprovider.New(&p)
 	return nil
 }
 
